@@ -1,0 +1,36 @@
+create table users
+(
+    id bigint auto_increment primary key,
+    first_name varchar(65)  null,
+    last_name varchar(65)  null,
+    age int null check (age >= 0 AND age <= 120),
+    password VARBINARY(255) null,
+    email varchar(255) UNIQUE null
+);
+
+-- auto-generated definition --
+CREATE TABLE user_roles (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+
+create table roles
+(
+    id   bigint auto_increment
+        primary key,
+    role_name varchar(65) null
+);
+
+
+insert into roles (role_name) values ('ROLE_ADMIN'), ('ROLE_USER');
+
+insert into users (username, lastname, age, password, email) values
+(admin, adminov, 22, '$2a$12$pgQorpiB0xDlLSYCz6DTZueKP5.EYiRQIAoWZ42MYiya6IaHIItVG', admin@mail.com);
+
+insert into users_roles (user_id, role_id) values (1, 1);
+
+DROP TABLE IF EXISTS (название таблицы);
